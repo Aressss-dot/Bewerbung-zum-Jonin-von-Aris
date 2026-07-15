@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ares — Uchiha Clan Aufnahme | Konohagakure</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0a0a0d;
+    --void-deep:#050506;
+    --blood:#9c1c1c;
+    --blood-bright:#d43b3b;
+    --sharingan:#c81e1e;
+    --bone:#e7e0d4;
+    --bone-dim:#c9bfae;
+    --ash:#8f8880;
+    --tomoe:#1a1a1e;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--void);
+    color:var(--bone);
+    font-family:'Zen Maru Gothic', sans-serif;
+    line-height:1.7;
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3,.brush{
+    font-family:'Shippori Mincho', serif;
+    letter-spacing:.02em;
+  }
+
+  a{color:inherit;}
+
+  /* Sharingan Hintergrundfeld */
+  #tomoefield{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:1;
+    overflow:hidden;
+  }
+  .tomoe-particle{
+    position:absolute;
+    bottom:-10px;
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    background:var(--blood-bright);
+    box-shadow:0 0 8px 2px rgba(212,59,59,.55);
+    opacity:0;
+    animation:drift linear infinite;
+  }
+  @keyframes drift{
+    0%{transform:translateY(0) translateX(0) rotate(0deg); opacity:0;}
+    12%{opacity:.85;}
+    88%{opacity:.35;}
+    100%{transform:translateY(-105vh) translateX(var(--sway)) rotate(180deg); opacity:0;}
+  }
+
+  .wrap{
+    position:relative;
+    z-index:2;
+    max-width:900px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  section{padding:120px 0;}
+  @media(max-width:640px){ section{padding:80px 0;} }
+
+  /* Hero mit Sharingan Emblem */
+  .hero{
+    min-height:100svh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    position:relative;
+    padding:40px 28px;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(ellipse 55% 45% at 50% 50%, rgba(156,28,28,.20), transparent 70%),
+      radial-gradient(ellipse 90% 60% at 50% 100%, rgba(20,20,24,.6), transparent 70%);
+    pointer-events:none;
+  }
+
+  .sharingan-eye{
+    width:96px;height:96px;
+    margin-bottom:30px;
+    animation:eyePulse 4s ease-in-out infinite;
+  }
+  @keyframes eyePulse{
+    0%,100%{filter:drop-shadow(0 0 8px rgba(212,59,59,.35));}
+    50%{filter:drop-shadow(0 0 22px rgba(212,59,59,.65));}
+  }
+
+  .eyebrow{
+    font-size:.8rem;
+    letter-spacing:.35em;
+    text-transform:uppercase;
+    color:var(--blood-bright);
+    margin-bottom:18px;
+  }
+  .hero h1{
+    font-size:clamp(3.2rem, 10vw, 6.5rem);
+    font-weight:800;
+    color:var(--bone);
+    line-height:1;
+    text-shadow:0 0 40px rgba(156,28,28,.3);
+  }
+  .hero .kanji-sub{
+    font-size:1.1rem;
+    color:var(--ash);
+    margin-top:14px;
+    letter-spacing:.15em;
+  }
+  .rank-tags{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    justify-content:center;
+    margin-top:34px;
+  }
+  .tag{
+    border:1px solid rgba(231,224,212,.22);
+    padding:8px 18px;
+    border-radius:2px;
+    font-size:.82rem;
+    letter-spacing:.08em;
+    color:var(--bone-dim);
+    background:rgba(156,28,28,.06);
+  }
+  .hero-quote{
+    max-width:540px;
+    margin-top:46px;
+    font-size:1.02rem;
+    color:var(--bone-dim);
+    font-style:italic;
+    border-top:1px solid rgba(231,224,212,.15);
+    padding-top:22px;
+  }
+  .scroll-cue{
+    position:absolute;
+    bottom:36px;
+    font-size:.72rem;
+    letter-spacing:.3em;
+    text-transform:uppercase;
+    color:var(--ash);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+  }
+  .scroll-cue span{
+    width:1px;height:36px;
+    background:linear-gradient(var(--blood-bright), transparent);
+    animation:pulseLine 1.8s ease-in-out infinite;
+  }
+  @keyframes pulseLine{
+    0%,100%{opacity:.3;}
+    50%{opacity:1;}
+  }
+
+  .sec-head{
+    display:flex;
+    align-items:baseline;
+    gap:16px;
+    margin-bottom:44px;
+  }
+  .sec-num{
+    font-family:'Shippori Mincho',serif;
+    font-size:1rem;
+    color:var(--blood-bright);
+    letter-spacing:.1em;
+  }
+  .sec-head h2{
+    font-size:clamp(1.7rem,4vw,2.4rem);
+    font-weight:700;
+    color:var(--bone);
+  }
+  .sec-line{
+    flex:1;
+    height:1px;
+    background:linear-gradient(90deg, rgba(231,224,212,.25), transparent);
+  }
+
+  .reveal{
+    opacity:0;
+    transform:translateY(24px);
+    transition:opacity .8s ease, transform .8s ease;
+  }
+  .reveal.in{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  .akte{
+    border:1px solid rgba(231,224,212,.14);
+    background:rgba(156,28,28,.03);
+  }
+  .akte-row{
+    display:grid;
+    grid-template-columns:200px 1fr;
+    border-bottom:1px solid rgba(231,224,212,.1);
+  }
+  .akte-row:last-child{border-bottom:none;}
+  .akte-row .k{
+    padding:18px 22px;
+    color:var(--blood-bright);
+    font-size:.85rem;
+    letter-spacing:.06em;
+    background:rgba(156,28,28,.08);
+  }
+  .akte-row .v{
+    padding:18px 22px;
+    color:var(--bone);
+  }
+  @media(max-width:560px){
+    .akte-row{grid-template-columns:1fr;}
+    .akte-row .k{padding-bottom:6px;background:transparent;}
+  }
+
+  .jutsu-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1px;
+    background:rgba(231,224,212,.12);
+    border:1px solid rgba(231,224,212,.12);
+  }
+  @media(max-width:640px){ .jutsu-grid{grid-template-columns:1fr;} }
+  .jutsu-card{
+    background:var(--void);
+    padding:32px 28px;
+    position:relative;
+    transition:background .3s ease;
+  }
+  .jutsu-card:hover{background:#141417;}
+  .jutsu-card::before{
+    content:"";
+    position:absolute;
+    top:0; left:0;
+    width:0; height:2px;
+    background:var(--blood-bright);
+    transition:width .4s ease;
+  }
+  .jutsu-card:hover::before{width:100%;}
+  .jutsu-icon{
+    font-size:1.5rem;
+    margin-bottom:14px;
+    display:block;
+  }
+  .jutsu-card h3{
+    font-size:1.15rem;
+    color:var(--bone);
+    margin-bottom:4px;
+  }
+  .jutsu-card .sub{
+    font-size:.82rem;
+    color:var(--blood-bright);
+    letter-spacing:.04em;
+    margin-bottom:14px;
+    display:block;
+  }
+  .jutsu-card p{
+    font-size:.92rem;
+    color:var(--ash);
+  }
+  .jutsu-card.doujutsu{
+    background:rgba(156,28,28,.07);
+  }
+
+  .char-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:36px;
+  }
+  @media(max-width:700px){ .char-grid{grid-template-columns:1fr;} }
+  .char-col h3{
+    font-size:1.2rem;
+    margin-bottom:22px;
+    padding-bottom:14px;
+    border-bottom:2px solid;
+  }
+  .char-col.pos h3{color:var(--bone); border-color:var(--bone-dim);}
+  .char-col.neg h3{color:var(--blood-bright); border-color:var(--blood-bright);}
+  .char-item{margin-bottom:24px;}
+  .char-item .t{
+    font-weight:700;
+    color:var(--bone);
+    display:block;
+    margin-bottom:6px;
+    font-size:.98rem;
+  }
+  .char-item p{
+    font-size:.9rem;
+    color:var(--ash);
+  }
+
+  .schedule{margin-bottom:44px;}
+  .schedule-label{
+    font-size:.75rem;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--blood-bright);
+    display:block;
+    margin-bottom:16px;
+  }
+  .schedule-grid{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:1px;
+    background:rgba(231,224,212,.12);
+    border:1px solid rgba(231,224,212,.12);
+  }
+  @media(max-width:560px){ .schedule-grid{grid-template-columns:repeat(4,1fr);} }
+  .sched-day{
+    background:var(--void);
+    padding:18px 8px;
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .sched-day .d{
+    font-family:'Shippori Mincho',serif;
+    font-size:.95rem;
+    color:var(--ash);
+    letter-spacing:.05em;
+  }
+  .sched-day .h{
+    font-size:.85rem;
+    color:var(--bone);
+    font-weight:700;
+  }
+  .sched-day.weekend{background:rgba(156,28,28,.09);}
+  .sched-day.weekend .d{color:var(--blood-bright);}
+  .schedule-note{
+    margin-top:14px;
+    font-size:.82rem;
+    color:var(--ash);
+    font-style:italic;
+  }
+
+  .why-box{
+    border-left:3px solid var(--blood-bright);
+    padding:6px 0 6px 26px;
+  }
+  .why-box p{
+    margin-bottom:18px;
+    color:var(--bone-dim);
+    font-size:.98rem;
+  }
+  .why-box p:last-child{margin-bottom:0;}
+
+  .story{
+    position:relative;
+    padding-left:30px;
+    border-left:1px solid rgba(231,224,212,.2);
+  }
+  .story-node{position:relative; margin-bottom:38px;}
+  .story-node:last-child{margin-bottom:0;}
+  .story-node::before{
+    content:"";
+    position:absolute;
+    left:-35px;
+    top:6px;
+    width:9px;height:9px;
+    border-radius:50%;
+    background:var(--blood-bright);
+    box-shadow:0 0 8px 2px rgba(212,59,59,.5);
+  }
+  .story-node h4{
+    font-family:'Shippori Mincho',serif;
+    font-size:1.05rem;
+    color:var(--blood-bright);
+    margin-bottom:10px;
+    letter-spacing:.03em;
+  }
+  .story-node p{
+    color:var(--bone-dim);
+    font-size:.97rem;
+  }
+
+  .contact-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1px;
+    background:rgba(231,224,212,.12);
+    border:1px solid rgba(231,224,212,.12);
+  }
+  @media(max-width:640px){ .contact-grid{grid-template-columns:1fr;} }
+  .contact-card{
+    background:var(--void);
+    padding:30px 24px;
+    text-align:center;
+  }
+  .contact-card .label{
+    font-size:.75rem;
+    letter-spacing:.15em;
+    text-transform:uppercase;
+    color:var(--ash);
+    margin-bottom:10px;
+    display:block;
+  }
+  .contact-card .value{
+    font-size:1rem;
+    color:var(--bone);
+    word-break:break-word;
+  }
+
+  footer{
+    text-align:center;
+    padding:110px 28px 80px;
+    position:relative;
+    z-index:2;
+  }
+  footer p{
+    max-width:560px;
+    margin:0 auto 30px;
+    color:var(--bone-dim);
+    font-size:.98rem;
+  }
+  .sign{
+    font-family:'Shippori Mincho',serif;
+    font-size:1.4rem;
+    color:var(--blood-bright);
+    margin-bottom:36px;
+  }
+  .final-quote{
+    font-size:.85rem;
+    color:var(--ash);
+    letter-spacing:.05em;
+    font-style:italic;
+  }
+
+  ::selection{background:var(--blood-bright); color:var(--void-deep);}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+    .reveal{opacity:1; transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<div id="tomoefield"></div>
+
+<section class="hero">
+  <svg class="sharingan-eye" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="46" fill="#0a0a0d" stroke="#e7e0d4" stroke-width="2" opacity="0.5"/>
+    <circle cx="50" cy="50" r="38" fill="#9c1c1c"/>
+    <circle cx="50" cy="50" r="9" fill="#0a0a0d"/>
+    <g fill="#0a0a0d">
+      <path d="M50 16 C55 26 55 34 50 40 C48 34 48 26 50 16 Z"/>
+      <path d="M79 62 C69 60 62 56 60 50 C67 51 74 55 79 62 Z"/>
+    </g>
+  </svg>
+  <div class="eyebrow">Konohagakure no Sato · Aufnahmegesuch</div>
+  <h1>Ares</h1>
+  <div class="kanji-sub">うちは一族 — Bewerbung um Aufnahme in den Uchiha Clan</div>
+  <div class="rank-tags">
+    <span class="tag">Sharingan erwacht</span>
+    <span class="tag">Katon Chakra</span>
+    <span class="tag">Tokubetsu Jōnin</span>
+  </div>
+  <p class="hero-quote">„Das Auge, das die Wahrheit sieht, gehört jetzt zum Clan, der das Feuer und den Schatten in sich trägt."</p>
+  <div class="scroll-cue"><span></span>Gesuch lesen</div>
+</section>
+
+<div class="wrap">
+
+  <section id="akte">
+    <div class="sec-head reveal">
+      <span class="sec-num">壱</span>
+      <h2>Shinobi Akte</h2>
+      <span class="sec-line"></span>
+    </div>
+    <div class="akte reveal">
+      <div class="akte-row"><div class="k">NAME</div><div class="v">Ares</div></div>
+      <div class="akte-row"><div class="k">RANG</div><div class="v">Tokubetsu Jōnin (Spezial Jōnin)</div></div>
+      <div class="akte-row"><div class="k">ZUGEHÖRIGKEIT</div><div class="v">Konohagakure no Sato, Gesuch um Aufnahme in den Uchiha Clan</div></div>
+      <div class="akte-row"><div class="k">CHAKRA NATUR</div><div class="v">Katon (Feuer)</div></div>
+      <div class="akte-row"><div class="k">DŌJUTSU</div><div class="v">Sharingan, erwacht mit zwei Tomoe</div></div>
+      <div class="akte-row"><div class="k">SPEZIALISATION</div><div class="v">Offensives Nin Jutsu, taktische Aufklärung, fortgeschrittenes Tai Jutsu</div></div>
+    </div>
+  </section>
+
+  <section id="jutsu">
+    <div class="sec-head reveal">
+      <span class="sec-num">弐</span>
+      <h2>Dōjutsu und Jutsu Register</h2>
+      <span class="sec-line"></span>
+    </div>
+    <div class="jutsu-grid reveal">
+      <div class="jutsu-card doujutsu">
+        <span class="jutsu-icon">👁️</span>
+        <h3>Sharingan, zwei Tomoe</h3>
+        <span class="sub">Das erwachte Auge</span>
+        <p>Ares kann Bewegungen, Chakrafluss und Jutsu Formationen seines Gegenübers in Echtzeit lesen, feine Details wie Genjutsu Ansätze erkennen und einfache Bewegungsmuster vorausahnen. Gerade in schnellen Nahkampf Wechseln gibt ihm das einen entscheidenden Vorsprung, weil er Konter schon einleitet, bevor der Angriff des Gegners überhaupt vollständig ausgeführt ist. Noch beherrscht er das Auge nicht in jeder Lage fehlerfrei, gerade über längere Kämpfe hinweg merkt er, wie viel Chakra der Dauereinsatz kostet.</p>
+      </div>
+      <div class="jutsu-card doujutsu">
+        <span class="jutsu-icon">🔮</span>
+        <h3>Genjutsu Erkennung</h3>
+        <span class="sub">Sharingan Reflex</span>
+        <p>Durch das Sharingan erkennt er beginnende Genjutsu fast augenblicklich und kann durch bewussten Chakraeinsatz einen Teil davon durchbrechen, bevor sie vollständig greifen. Bei einfachen bis mittelschweren Illusionen reicht das meist aus, bei sehr erfahrenen Genjutsu Anwendern weiß er jedoch, dass er an seine Grenzen stößt und lieber auf Teamkollegen zur Unterstützung setzt, statt sich allein hindurchzukämpfen.</p>
+      </div>
+      <div class="jutsu-card">
+        <span class="jutsu-icon">🔥</span>
+        <h3>Katon: Gōkākyō no Jutsu</h3>
+        <span class="sub">Kunst der mächtigen Feuerkugel</span>
+        <p>Der absolute Klassiker des Feuerelements. Ares stößt eine riesige, hochexplosive Feuerkugel aus, die großen Schaden im Zielgebiet anrichtet. Er setzt sie bevorzugt am Anfang eines Gefechts ein, um Deckung zu zerstören und dem Gegner sofort klarzumachen, dass ein Rückzug oft die klügere Wahl wäre.</p>
+      </div>
+      <div class="jutsu-card">
+        <span class="jutsu-icon">✴️</span>
+        <h3>Katon: Hōsenka no Jutsu</h3>
+        <span class="sub">Kunst der 鳳仙花Feuerbälle</span>
+        <p>Er verschießt mehrere kleine, schnelle Feuerbälle gleichzeitig, in denen er oft Shuriken oder Kunais versteckt, um den Gegner unvorbereitet zu treffen. Die Technik eignet sich besonders gut, um mehrere Gegner gleichzeitig auf Abstand zu halten, während er selbst Zeit gewinnt, um seine nächste Bewegung zu planen.</p>
+      </div>
+      <div class="jutsu-card">
+        <span class="jutsu-icon">💨</span>
+        <h3>Shunshin no Jutsu</h3>
+        <span class="sub">Körperflimmern</span>
+        <p>Eine Hochgeschwindigkeits Bewegungstechnik, die es ihm erlaubt, im Kampf für Sekundenbruchteile wie ein flackerndes Trugbild im Rauch zu wirken, um Angriffen auszuweichen. Kombiniert mit dem Sharingan nutzt er kurze Verzögerungen im gegnerischen Blick, um sich noch gezielter neu zu positionieren, statt einfach nur zu fliehen.</p>
+      </div>
+      <div class="jutsu-card">
+        <span class="jutsu-icon">⚔️</span>
+        <h3>Katon: Flint Stil</h3>
+        <span class="sub">Feuerumhüllte Klingen</span>
+        <p>Er leitet sein Katon Chakra in seine Ninja Werkzeuge, wodurch seine Kunais und Schwerter bei Kontakt explosive Hitze freisetzen und Rüstungen durchschmelzen können. Diese Technik verbraucht spürbar mehr Chakra als seine übrigen Jutsu, weshalb er sie gezielt für kurze, entscheidende Momente im Nahkampf aufspart statt sie dauerhaft einzusetzen.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="charakter">
+    <div class="sec-head reveal">
+      <span class="sec-num">参</span>
+      <h2>Shinobi Charakter</h2>
+      <span class="sec-line"></span>
+    </div>
+    <div class="char-grid reveal">
+      <div class="char-col pos">
+        <h3>Stärken</h3>
+        <div class="char-item">
+          <span class="t">Enorme RP Erfahrung, 2500 Stunden</span>
+          <p>Durch meine 2500 Stunden in Garry's Mod kenne ich die Mechaniken und Dynamiken von Serious RP Servern in und auswendig. Ich weiß, wie man lange, packende RP Situationen aufbaut und zieht, ohne das Gegenüber zu frustrieren.</p>
+        </div>
+        <div class="char-item">
+          <span class="t">Geistige Reife und Vorbildfunktion</span>
+          <p>Ich besitze die nötige Reife und das Pflichtbewusstsein, um Verantwortung innerhalb eines Clans verlässlich zu tragen. Ich verhalte mich im RP stets professionell und lasse mich OOC nicht provozieren.</p>
+        </div>
+        <div class="char-item">
+          <span class="t">Fraktions und Teamerfahrung</span>
+          <p>Ich weiß, wie man Strukturen innerhalb einer Fraktion aufbaut, Trainings leitet und Disziplin einfordert, ohne den Spielspaß zu nehmen. Ich kann Neulingen das Regelwerk und richtiges RP Verhalten geduldig beibringen.</p>
+        </div>
+        <div class="char-item">
+          <span class="t">Ruhe in Konfliktsituationen</span>
+          <p>Wenn es im RP mal hitzig wird oder Support Situationen drohen, bleibe ich ruhig, sachlich und versuche die Situation immer zuerst IC mit gutem RP zu lösen, statt sofort in den OOC Chat zu wechseln. Gerade in Clan internen Konflikten sehe ich das als wichtigen Teil meiner Rolle, weil sich Streit zwischen Mitgliedern schnell auf das ganze RP Umfeld auswirken kann.</p>
+        </div>
+        <div class="char-item">
+          <span class="t">Verlässlichkeit über längere Zeit</span>
+          <p>Ich melde mich rechtzeitig ab, wenn ich mal nicht online sein kann, und halte Absprachen zu Trainings oder Missionen zuverlässig ein. Mir ist bewusst, dass gerade eine Fraktion wie ein Clan von Planbarkeit lebt und spontanes Absagen anderen die Vorbereitung erschwert.</p>
+        </div>
+      </div>
+      <div class="char-col neg">
+        <h3>Schwächen</h3>
+        <div class="char-item">
+          <span class="t">Direkte Art bei Regelbrüchen</span>
+          <p>Wenn jemand absichtlich das RP anderer zerstört, zum Beispiel durch FailRP, spreche ich das nach der Situation sehr direkt und deutlich an, da mir die RP Qualität auf dem Server wichtig ist. Ich arbeite daran, dabei auch nach einer hitzigen Situation kurz durchzuatmen, bevor ich das Gespräch suche, statt es sofort im Anschluss zu tun.</p>
+        </div>
+        <div class="char-item">
+          <span class="t">Perfektionsanspruch</span>
+          <p>Ich hänge mich manchmal zu sehr in die Organisation von Fraktions Strukturen oder Trainingsplänen hinein und erwarte auch von meinen Fraktionsmitgliedern ein gewisses Maß an Ernsthaftigkeit. Das kann in lockeren Runden gelegentlich zu viel wirken, weshalb ich versuche, bewusster zwischen ernsten Trainingsphasen und entspannten RP Momenten zu unterscheiden.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ooc">
+    <div class="sec-head reveal">
+      <span class="sec-num">四</span>
+      <h2>OOC Akte</h2>
+      <span class="sec-line"></span>
+    </div>
+    <div class="akte reveal" style="margin-bottom:44px;">
+      <div class="akte-row"><div class="k">NAME</div><div class="v">Aris</div></div>
+      <div class="akte-row"><div class="k">GMOD SPIELZEIT</div><div class="v">ca. 2500 Stunden</div></div>
+    </div>
+
+    <div class="schedule reveal">
+      <span class="schedule-label">Onlinezeiten</span>
+      <div class="schedule-grid">
+        <div class="sched-day"><span class="d">Mo</span><span class="h">16–22</span></div>
+        <div class="sched-day"><span class="d">Di</span><span class="h">16–22</span></div>
+        <div class="sched-day"><span class="d">Mi</span><span class="h">16–22</span></div>
+        <div class="sched-day"><span class="d">Do</span><span class="h">16–22</span></div>
+        <div class="sched-day weekend"><span class="d">Fr</span><span class="h">14–open</span></div>
+        <div class="sched-day weekend"><span class="d">Sa</span><span class="h">14–open</span></div>
+        <div class="sched-day weekend"><span class="d">So</span><span class="h">14–open</span></div>
+      </div>
+      <p class="schedule-note">„open" heißt flexibel, solange der Clan mich braucht, am Wochenende ohne feste Endzeit.</p>
+    </div>
+
+    <h3 style="color:var(--blood-bright); font-size:1.2rem; margin-bottom:18px;" class="reveal">Warum ich?</h3>
+    <div class="why-box reveal">
+      <p>Mit meinen 2500 Stunden in Garry's Mod habe ich die Entwicklung der RP Szene intensiv miterlebt. Ich weiß genau, worauf es bei einem Server Release ankommt: Struktur, Disziplin und Vorbildfunktion.</p>
+      <p>Ein Mitglied des Uchiha Clans ist kein reiner Kampf Titel, sondern eine Verpflichtung gegenüber dem Erbe des Clans und gegenüber der Gemeinschaft im Dorf. Durch meine lange Erfahrung in GMod kann ich Neulingen das Regelwerk und das RP Verhalten spielerisch und geduldig beibringen, ohne dabei die IC Rolle zu verlassen.</p>
+      <p>Ich bin stressresistent, kann in hitzigen Situationen, zum Beispiel bei Server Konflikten oder Fehlverhalten anderer, ruhig bleiben und suche immer zuerst das Gespräch im RP, bevor OOC Support nötig wird.</p>
+      <p>Mir ist außerdem wichtig, dass eine Bewerbung nicht nur aus großen Worten besteht. Ich möchte mich lieber über einen längeren Zeitraum durch Verlässlichkeit und Verhalten beweisen, als von Anfang an mit großen Ansprüchen aufzutreten. Wenn ich einmal einen Fehler mache, stehe ich dazu und ziehe daraus Konsequenzen, statt es kleinzureden.</p>
+    </div>
+
+    <h3 style="color:var(--blood-bright); font-size:1.2rem; margin-bottom:18px; margin-top:44px;" class="reveal">Warum der Uchiha Clan?</h3>
+    <div class="why-box reveal">
+      <p>Der Uchiha Clan steht für Stolz, Disziplin und ein Erbe, das man sich verdienen muss. Ares hat sein Sharingan nicht geschenkt bekommen, es erwachte in einem Moment äußerster Not, als er Verantwortung für das Leben anderer übernehmen musste. Genau diese Haltung möchte ich in den Clan einbringen: kein Anspruch durch Namen, sondern durch Taten.</p>
+      <p>Innerhalb des Clans möchte ich meine Ruhe in Konfliktsituationen nutzen, um Streitigkeiten intern zu lösen und die Reihen zusammenzuhalten, statt sie nach außen zu tragen. Genauso wichtig ist mir, von erfahrenen Clan Mitgliedern zu lernen, wie man das Sharingan verantwortungsvoll einsetzt, anstatt es unüberlegt in jeder Situation zu nutzen.</p>
+      <p>Langfristig würde ich mich gerne aktiv an Trainingsangeboten für jüngere oder neue Clan Mitglieder beteiligen, ähnlich wie ich es bereits für Neulinge im Dorf mache, damit der Clan nicht nur durch Blutlinie, sondern auch durch ein starkes Miteinander zusammenhält.</p>
+    </div>
+  </section>
+
+  <section id="story-sec">
+    <div class="sec-head reveal">
+      <span class="sec-num">伍</span>
+      <h2>Das Erwachen</h2>
+      <span class="sec-line"></span>
+    </div>
+    <div class="story reveal">
+      <div class="story-node">
+        <h4>Herkunft ohne Namen</h4>
+        <p>Ares wurde in die unruhigen Zeiten nach den großen Konflikten hineingeboren. Ohne den offenen Rückhalt eines großen Clans musste er sich jeden Millimeter Respekt auf den Trainingsplätzen hart erarbeiten, während andere Kinder aus etablierten Familien allein durch ihren Nachnamen schon Anerkennung bekamen. Nur seine Mutter sprach selten und sehr vorsichtig von einer fernen Verbindung zu einer alten Blutlinie, ein Gerücht, das er lange für bedeutungslos hielt und das in der Familie nie offen ausgesprochen wurde.</p>
+        <p>Als Kind fragte er sie einmal direkt danach, bekam aber nur ein müdes Lächeln und den Satz, dass manche Dinge besser schlafen sollten, bis sie von selbst erwachen. Diese Antwort ließ ihn nie ganz los, auch wenn er sie sich über die Jahre selbst wegerklärte.</p>
+      </div>
+      <div class="story-node">
+        <h4>Die Akademie Jahre</h4>
+        <p>Schon während seiner Zeit an der Akademie fiel er weniger durch rohe Gewalt, sondern durch sein strategisches Verständnis auf. Sein Blick für Muster und Schwachstellen im Gegner war ungewöhnlich scharf für sein Alter, was ihm sowohl Respekt als auch Neid einiger Mitschüler einbrachte, die sich lieber auf pure Stärke verließen.</p>
+        <p>Ausbilder bemerkten früh, dass er Kämpfe eher wie ein Schachspiel las als wie einen reinen Kraftakt, und setzten ihn deshalb häufiger in Führungsübungen kleinerer Teams ein, lange bevor er offiziell dazu ernannt wurde.</p>
+      </div>
+      <div class="story-node">
+        <h4>Der Hinterhalt an der Grenze</h4>
+        <p>Nach seinem Aufstieg zum Chūnin bewies er sich in einer kritischen Mission an der Grenze des Feuerreichs. Seine Einheit geriet in den Hinterhalt einer abtrünnigen Ninja Gruppe, die den schmalen Passweg gezielt für einen koordinierten Überfall genutzt hatte. Als der Truppenführer schwer verwundet ausfiel, übernahm Ares mit gerade einmal 16 Jahren das Kommando, obwohl in diesem Moment niemand in der Einheit damit gerechnet hätte, dass ausgerechnet er die Lage stabilisieren würde.</p>
+      </div>
+      <div class="story-node">
+        <h4>Das Auge öffnet sich</h4>
+        <p>In dem Moment, als er glaubte, seine gesamte Einheit verlieren zu müssen, spürte er einen brennenden Schmerz hinter den Augen, so stark, dass er kurz die Orientierung verlor. Als er das nächste Mal blinzelte, sah er die Welt anders: Bewegungen wirkten langsamer, Chakraflüsse sichtbar, Absichten lesbar, als würde die Zeit selbst für ihn einen Schritt zurücktreten. Das Sharingan war erwacht, zwei Tomoe, tief rot in beiden Augen, und für einen kurzen Augenblick erkannte er sich im Spiegel eines zersplitterten Kunais selbst kaum wieder.</p>
+      </div>
+      <div class="story-node">
+        <h4>Das Kommando</h4>
+        <p>Mithilfe seines neu erwachten Blicks und geschickter Ablenkungsmanöver gelang es ihm, die Angreifer zu isolieren und seine Einheit ohne weitere Verluste sicher nach Konoha zurückzubringen. Erst auf dem Rückweg, als die Anspannung langsam wich, wurde ihm bewusst, was sich in ihm verändert hatte, und dass er dafür noch keine Erklärung hatte, weder für sich selbst noch für seine Vorgesetzten.</p>
+      </div>
+      <div class="story-node">
+        <h4>Das nächste Kapitel</h4>
+        <p>Seitdem trägt Ares ein Erbe in sich, das er weder gesucht noch verstanden hat, ein Auge, das eigentlich einem Clan gehört, dem er selbst nie offiziell angehörte. Er stellt sich nun offen dem Uchiha Clan vor, nicht um sich ein Recht zu erschleichen, sondern um Verantwortung für das zu übernehmen, was in ihm erwacht ist, es unter Anleitung besser zu verstehen und Konohagakure mit seinem Leben zu verteidigen.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="kontakt">
+    <div class="sec-head reveal">
+      <span class="sec-num">六</span>
+      <h2>Kontakt Scroll</h2>
+      <span class="sec-line"></span>
+    </div>
+    <div class="contact-grid reveal">
+      <div class="contact-card">
+        <span class="label">SteamID</span>
+        <div class="value">76561199146072714</div>
+      </div>
+      <div class="contact-card">
+        <span class="label">Discord</span>
+        <div class="value">Aris / arxs__</div>
+      </div>
+      <div class="contact-card">
+        <span class="label">In Game / Forum</span>
+        <div class="value">Ares</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <p class="reveal">Ich danke euch für das Lesen meines Gesuchs. Ich weiß, dass die Aufnahme in den Uchiha Clan Vertrauen erfordert, und ich bin bereit, dieses Vertrauen im RP durch Taten zu verdienen statt nur durch Worte.</p>
+  <p class="reveal">Über ein positives Feedback oder eine Einladung zum persönlichen Gespräch würde ich mich sehr freuen.</p>
+  <div class="sign reveal">Mit freundlichen Grüßen, Ares</div>
+  <div class="final-quote reveal">「血よりも意志を」— Der Wille zählt mehr als das Blut</div>
+</footer>
+
+<script>
+  const field = document.getElementById('tomoefield');
+  const count = window.innerWidth < 640 ? 16 : 28;
+  for(let i=0;i<count;i++){
+    const p = document.createElement('div');
+    p.className='tomoe-particle';
+    const left = Math.random()*100;
+    const dur = 6 + Math.random()*8;
+    const delay = Math.random()*10;
+    const sway = (Math.random()*80-40)+'px';
+    p.style.left = left+'vw';
+    p.style.setProperty('--sway', sway);
+    p.style.animationDuration = dur+'s';
+    p.style.animationDelay = delay+'s';
+    field.appendChild(p);
+  }
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  },{threshold:0.15});
+  revealEls.forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
